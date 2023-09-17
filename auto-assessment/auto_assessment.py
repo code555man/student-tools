@@ -1,4 +1,3 @@
-
 # Python Version 3.7.9
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -76,7 +75,7 @@ def auto_assessment():
         try:
             alert = Alert(browser)
             alert.accept()
-            sleep(2)
+            sleep(1)
 
             find_subject = browser.find_elements(By.TAG_NAME,"a")
             find_std_id = browser.find_element(By.XPATH,"/html/body/table/tbody/tr/td/table/tbody/tr/td/table/tbody/tr[3]/td/table/tbody/tr[1]/td[2]/font/b")
@@ -108,21 +107,24 @@ def auto_assessment():
                 browser.find_element(By.NAME,"msubmit").click()
                 sleep(1)
             flush_text("\n[✓] ทำแบบประเมินสำเร็จ",G)
-            menu = input(f"{O}[?] เรียกใช้งานโปรแกรมอีกครั้ง (y) ออกจากโปรแกรม (ctrl + c) : ")
+            menu = input(f"{O}\n[?] เรียกใช้งานโปรแกรมอีกครั้ง (y) ออกจากโปรแกรม (n) : ")
 
         except:
             find_std_id = browser.find_element(By.XPATH,"/html/body/table/tbody/tr/td/table/tbody/tr/td/table/tbody/tr[3]/td/table/tbody/tr[1]/td[2]/font/b")
             find_name = browser.find_element(By.XPATH,"/html/body/table/tbody/tr/td/table/tbody/tr/td/table/tbody/tr[3]/td/table/tbody/tr[1]/td[5]/font/b")
             print(f"{G}\n========== [+] รหัสนักศึกษา: {O}{find_std_id.text}{G} ชื่อ: {O}{find_name.text}{G} ===========\n")
             flush_text("[!] ไม่มีรายวิชาที่รอการประเมิน\n",R)
-            menu = input(f"{O}[?] เรียกใช้งานโปรแกรมอีกครั้ง (y) ออกจากโปรแกรม (ctrl + c) : ")
+            menu = input(f"{O}[?] เรียกใช้งานโปรแกรมอีกครั้ง (y) ออกจากโปรแกรม (n) : ")
     except:
         flush_text(f"\n[!] ล็อคอินไม่สำเร็จ ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง [{std_id}:{passwd}]\n",R)
-        menu = input(f"{O}[?] เรียกใช้งานโปรแกรมอีกครั้ง (y) ออกจากโปรแกรม (ctrl + c) : ")
+        menu = input(f"{O}[?] เรียกใช้งานโปรแกรมอีกครั้ง (y) ออกจากโปรแกรม (n) : ")
         
     if menu in ["Y","y"]:
         system("cls")
         auto_assessment()
+    else:
+        sys.exit
+        
 
 if __name__ == '__main__':
     auto_assessment()
